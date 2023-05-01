@@ -1,0 +1,7 @@
+{
+    "[terraform]": {   
+        "editor. formatOnSave": true
+    },
+    "editor.suggest.preview": true,
+    "terraform.experimentalFeatures.prefillRequired Fields": true
+}

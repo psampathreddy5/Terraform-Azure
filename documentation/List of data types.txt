@@ -1,0 +1,126 @@
+There are just seven data types in Terraform because these data types can be used to represent all of the necessary data structures needed to 
+manage infrastructure resources. Additionally, Terraform allows for the creation of custom data types through the use of modules.
+
+Here's a list of the seven data types in Terraform, listed alphabetically:
+
+bool
+list
+map
+number
+object
+set
+string
+**********************************************************************************************************************************************
+
+
+1). Give a detailed description of each Terraform data type and a list of all of them. I appreciate the thorough explanation you provided 
+	above. In a similar manner, provide examples to illustrate each data type.
+
+A). Sure! Here's a detailed explanation of each data type in Terraform, along with an example for each type:
+
+	1).string: The string data type is used to represent a single string value. It can be used to represent a wide range of data, 
+	   such as text, numbers, or even binary data.
+		Example:
+				variable "storage_account_name" {
+				  type    = string
+				  default = "my-storage-account"
+				}
+
+				resource "azurerm_storage_account" "example" {
+				  name = var.storage_account_name
+				  ...
+				}
+				
+	2).number: The number data type is used to represent a single numeric value. It can be used to represent integers, floating-point numbers,
+   	   or other types of numeric data.
+		Example:
+				variable "storage_account_capacity" {
+				  type    = number
+				  default = 100
+				}
+
+				resource "azurerm_storage_account" "example" {
+				  capacity = var.storage_account_capacity
+				  ...
+				}
+	
+	3).bool: The bool data type is used to represent a boolean value, which can be either true or false.
+		Example:
+				variable "storage_account_enabled" {
+				  type    = bool
+				  default = true
+				}
+
+				resource "azurerm_storage_account" "example" {
+				  enabled = var.storage_account_enabled
+				  ...
+				}
+				
+	4).list: The list data type is used to represent an ordered collection of values. It can be used to represent arrays or other types 
+	   of ordered data.
+		Example:
+				variable "storage_account_endpoints" {
+				  type    = list(string)
+				  default = ["blob", "file"]
+				}
+
+				resource "azurerm_storage_account" "example" {
+				  endpoints = var.storage_account_endpoints
+				  ...
+				}
+				
+	5).set: The set data type is used to represent an unordered collection of unique values. It can be used to represent sets or other 
+	   types of unordered data.
+		Example:
+				variable "allowed_ip_addresses" {
+				  type    = set(string)
+				  default = ["10.0.0.1", "10.0.0.2"]
+				}
+
+				resource "azurerm_storage_account_network_rules" "example" {
+				  storage_account_id = azurerm_storage_account.example.id
+
+				  ip_rules = var.allowed_ip_addresses
+				  ...
+				}
+	
+	6).map: The map data type is used to represent a collection of key-value pairs. It can be used to represent dictionaries or other 
+	   types of key-value data.
+		Example:
+				variable "storage_account_tags" {
+				  type    = map(string)
+				  default = {
+					environment = "dev"
+					owner       = "John Doe"
+				  }
+				}
+
+				resource "azurerm_storage_account" "example" {
+				  name = "example-storage-account"
+				  tags = var.storage_account_tags
+				  ...
+				}
+				
+	7).object: The object data type is used to represent a complex data structure with named attributes. It can be used to represent records 
+	   or other types of complex data.
+		Example:
+				variable "storage_account_properties" {
+				  type = object({
+					kind         = string
+					tier         = string
+					replication  = string
+					https_traffic_only = bool
+				  })
+				  default = {
+					kind         = "StorageV2"
+					tier         = "Standard"
+					replication  = "LRS"
+					https_traffic_only = true
+				  }
+				}
+
+				resource "azurerm_storage_account" "example" {
+				  name = "example-storage-account"
+				  kind = var.storage_account_properties.kind
+				  tier = var.storage_account_properties.tier
+				  replication_type = var.storage_account_properties.replication
